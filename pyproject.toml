@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "aci"
+version = "0.1.0"
+description = "AI Agent project using Agno framework"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+agno = "*"
+python-dotenv = "^1.0.0"
+yfinance = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0"
+black = "^23.0"
+flake8 = "^6.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
