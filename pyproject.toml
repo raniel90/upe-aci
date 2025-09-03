@@ -11,6 +11,21 @@ python = "^3.12"
 agno = "*"
 python-dotenv = "^1.0.0"
 yfinance = "*"
+openai = "^1.102.0"
+sqlalchemy = "^2.0.43"
+lancedb = "^0.24.3"
+ddgs = "^9.5.5"
+pypdf = "^5.1.0"
+fastapi = "^0.116.1"
+uvicorn = "^0.35.0"
+gunicorn = "^23.0.0"
+python-multipart = "^0.0.9"
+
+[tool.poetry.group.prod.dependencies]
+psycopg2-binary = "^2.9.9"
+redis = "^5.0.0"
+prometheus-client = "^0.20.0"
+sentry-sdk = "^2.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.0"
