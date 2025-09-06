@@ -172,7 +172,7 @@ docker-compose -f docker-compose.prod.yml build
 docker-compose -f docker-compose.prod.yml up -d
 
 # Recarregar knowledge base (se necessário)
-docker-compose -f docker-compose.prod.yml exec nr06-playground python playground.py load
+docker-compose -f docker-compose.prod.yml exec nr06-playground python agent.py load
 ```
 
 ### **Backup e Restore**
@@ -248,7 +248,7 @@ docker-compose -f docker-compose.prod.yml config
 ls -la data/pdfs/nr-06-atualizada-2022-1.pdf
 
 # Recarregar manualmente
-docker-compose -f docker-compose.prod.yml exec nr06-playground python playground.py load
+docker-compose -f docker-compose.prod.yml exec nr06-playground python agent.py load
 ```
 
 #### **3. Erro de conexão com banco**

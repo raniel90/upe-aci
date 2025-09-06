@@ -22,7 +22,7 @@ O **NR-06 Operational System** é um sistema especializado em Equipamentos de Pr
   - **Framework**: Agno + FastAPI + Uvicorn
   - **Porta**: 8000
   - **Linguagem**: Python 3.12
-  - **Arquivo Principal**: `playground.py`
+  - **Arquivo Principal**: `agent.py`
   - **Configuração Produção**: `production_config.py`
 
 #### **2.1 Agentes Especializados (6 agentes)**
@@ -316,7 +316,7 @@ docker stats
 ├── 🐳 Dockerfile                # Build da aplicação
 ├── 🌐 nginx.conf                # Configuração proxy
 ├── 🚀 deploy.sh                 # Script de deployment
-├── 🛡️ playground.py            # Aplicação principal
+├── 🛡️ agent.py                 # Aplicação principal
 ├── ⚙️ production_config.py      # Configuração produção
 ├── 📄 production.env           # Variáveis ambiente
 ├── 📊 pyproject.toml           # Dependências Python
@@ -370,7 +370,7 @@ docker-compose -f docker-compose.prod.yml logs -f
 ./backup.sh  # (criar script separado)
 
 # Recarregar knowledge base
-docker-compose -f docker-compose.prod.yml exec nr06-playground python playground.py load
+docker-compose -f docker-compose.prod.yml exec nr06-playground python agent.py load
 ```
 
 Este documento define a arquitetura completa do sistema, componentes utilizados e estratégia de deployment otimizada para Digital Ocean com Docker Compose.

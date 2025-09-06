@@ -283,7 +283,7 @@ if __name__ == "__main__":
         print("  ⚖️  Consultor Legal - Esclarece aspectos legais")
         print("  📝 Gerador de POPs - Cria procedimentos operacionais")
         print("=" * 50)
-        print("💡 Para carregar a base de conhecimento: python playground.py load")
+        print("💡 Para carregar a base de conhecimento: python agent.py load")
         print("🚀 Iniciando playground...")
         
         # Configuração baseada no ambiente

@@ -44,11 +44,11 @@ deploy_local() {
     
     # Carregar knowledge base
     echo "📚 Carregando knowledge base..."
-    python playground.py load
+    python agent.py load
     
     # Iniciar aplicação
     echo "🚀 Iniciando NR-06 Playground..."
-    python playground.py
+    python agent.py
 }
 
 # Função para produção com Docker Compose
@@ -69,7 +69,7 @@ deploy_production() {
     
     # Carregar knowledge base em produção
     echo "📚 Carregando knowledge base em produção..."
-    docker-compose -f docker-compose.prod.yml exec nr06-playground python playground.py load
+    docker-compose -f docker-compose.prod.yml exec nr06-playground python agent.py load
     
     # Mostrar status
     echo "📊 Status dos serviços:"
