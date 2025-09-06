@@ -1,50 +1,50 @@
-# 🛡️ NR-06 Operational System
+# 🤖 SafeBot - Sistema Inteligente de Segurança do Trabalho
 
-Sistema operacional para Equipamentos de Proteção Individual baseado na Norma Regulamentadora 06, desenvolvido com o framework [Agno](https://docs.agno.com/).
+Sistema inteligente para análise de normas regulamentadoras em Saúde e Segurança do Trabalho (SST). Uma plataforma especializada que utiliza inteligência artificial para interpretar, auditar e garantir conformidade com normas regulamentadoras de SST através de agentes especializados.
 
 ## 🏗️ **Estrutura do Projeto**
 
 ```
 aci/
-├── agent/          # Backend - Sistema de agentes com Agno Framework
+├── agent/          # Backend - Sistema de agentes IA especializados
 │   ├── agent.py
 │   ├── pyproject.toml
 │   ├── docker-compose.yml
 │   └── ...
-├── ui/             # Frontend - Interface React/Next.js
+├── ui/             # Frontend - Interface React/Next.js moderna
 │   ├── src/
 │   ├── package.json
 │   └── ...
 └── README.md
 ```
 
-## 🎯 **Agentes Especializados**
+## 🎯 **Agentes Especializados em SST**
 
-- **🎯 Seletor de EPIs** - Recomenda EPIs específicos por tipo de risco
-- **📋 Auditor NR-06** - Gera checklists de auditoria e classifica não conformidades  
-- **🎓 Designer de Treinamentos** - Cria programas de capacitação personalizados
-- **🔍 Investigador de Acidentes** - Analisa acidentes relacionados a EPIs
-- **⚖️ Consultor Legal** - Esclarece aspectos legais da NR-06
-- **📝 Gerador de POPs** - Cria procedimentos operacionais padrão
+- **📋 Auditor de Normas Regulamentadoras** - Analisa conformidade com NRs e identifica não conformidades
+- **⚖️ Consultor em Legislação SST** - Interpreta normas regulamentadoras e legislação trabalhista
+- **📝 Gerador de Procedimentos SST** - Cria POPs, PTRs e documentação técnica de segurança
+- **🔍 Investigador de Acidentes** - Analisa relatórios de acidentes e identifica causas raiz
+- **🎓 Designer de Treinamentos SST** - Desenvolve programas de capacitação em segurança
+- **📊 Analista de Riscos Ocupacionais** - Avalia riscos e categoriza perigos no ambiente de trabalho
 
 ## 🚀 **Setup e Execução**
 
 ### 🔧 **Desenvolvimento Local**
 
-#### 1. Backend (Agent System)
+#### 1. Backend (Sistema de Agentes)
 ```bash
 cd agent/
 
-# Instalar dependências
+# Instalar dependências Python
 poetry install
 
 # Configurar ambiente
 cp env.example .env
 # Edite .env com sua OPENAI_API_KEY
 
-# Executar localmente
+# Executar o sistema
 poetry run python agent.py
-# ou
+# ou usar o script de deploy
 ./deploy.sh local
 ```
 
@@ -91,17 +91,17 @@ npm run build
 npm start
 ```
 
-### ☁️ **AWS com Agno CLI (Enterprise)**
+### ☁️ **Deploy em Nuvem**
 ```bash
 cd agent/
 
-# 1. Instalar Agno CLI
-pip install agno-cli
+# 1. Configurar credenciais AWS
+aws configure
 
-# 2. Configurar workspace
-ag ws create
+# 2. Criar infraestrutura (usando Terraform/CDK)
+# terraform init && terraform apply
 
-# 3. Deploy AWS
+# 3. Deploy da aplicação
 ./deploy.sh aws
 ```
 
@@ -112,90 +112,96 @@ ag ws create
 - **Desenvolvimento**: http://localhost:3000
 - **Produção**: http://localhost:3000 (ou porta configurada)
 
-#### Backend (Agent API)
+#### Backend (SafeBot API)
 - **Desenvolvimento**: http://localhost:7777
 - **Produção**: http://localhost:8000
-- **AWS**: https://your-domain.com
+- **Nuvem**: https://your-domain.com
 
 ### Health Checks
-- **Backend Local**: http://localhost:7777/health
-- **Backend Produção**: http://localhost:8000/health
-- **AWS**: https://your-domain.com/health
+- **SafeBot Local**: http://localhost:7777/health
+- **SafeBot Produção**: http://localhost:8000/health
+- **SafeBot Nuvem**: https://your-domain.com/health
 
 ### Endpoints Principais
-- **UI Interface**: `/` - Interface React principal
-- **Agent Playground**: `/playground` - Interface de agentes
-- **API Docs**: `/docs` - Documentação automática da API
-- **API Root**: `/` - Informações do sistema backend
+- **Dashboard SafeBot**: `/` - Interface de análise de normas regulamentadoras
+- **Console de Agentes**: `/playground` - Interação com agentes SafeBot especializados
+- **Documentação API**: `/docs` - API interativa e especificações técnicas
+- **Status do SafeBot**: `/health` - Monitoramento e métricas de performance
 
 ## 🏗️ **Arquitetura do Sistema**
 
 ### Desenvolvimento
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   React UI      │───▶│  Agent Backend  │───▶│   PgVector DB   │
-│   (Port 3000)   │    │  (Port 7777)    │    │   (Port 5432)   │
+│ SafeBot Web UI  │───▶│ SafeBot Agents  │───▶│ Base Normas SST │
+│   (Port 3000)   │    │  (Port 7777)    │    │ NRs + PgVector  │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
                                 │
                                 ▼
                        ┌─────────────────┐
-                       │   LanceDB       │
-                       │   (Vectors)     │
+                       │   OpenAI API    │
+                       │   (GPT-4/3.5)   │
                        └─────────────────┘
 ```
 
 ### Produção
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Nginx Proxy   │───▶│   React UI      │    │  Agent Backend  │
+│  Load Balancer  │───▶│ SafeBot Web UI  │    │ SafeBot Agents  │
 │   (Port 80/443) │    │   (Port 3000)   │───▶│  (Port 8000)    │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
                                                         │
                        ┌─────────────────┐              ▼
                        │   Redis Cache   │    ┌─────────────────┐
-                       │   (Port 6379)   │◀───│   PgVector DB   │
-                       └─────────────────┘    │   (Port 5432)   │
+                       │ Sessões/Estado  │◀───│ Base Normas SST │
+                       └─────────────────┘    │ NRs + PgVector  │
                                               └─────────────────┘
 ```
 
 ## 🔧 **Configuração**
 
-### Backend (Agent) - Variáveis Obrigatórias
+### Sistema Backend - Variáveis Essenciais
 ```bash
-OPENAI_API_KEY=sk-...           # API Key da OpenAI
-ENVIRONMENT=production          # Ambiente de execução
-DATABASE_URL=postgresql+psycopg://ai:ai@pgvector:5432/ai
+OPENAI_API_KEY=sk-...           # Chave da OpenAI para agentes IA
+ENVIRONMENT=production          # Ambiente: development/production
+DATABASE_URL=postgresql+psycopg://user:pass@host:5432/safebot
 ```
 
-### Backend (Agent) - Variáveis Opcionais
+### Sistema Backend - Configurações Avançadas
 ```bash
-SENTRY_DSN=https://...         # Monitoramento de erros
-REDIS_URL=redis://redis:6379/0 # Cache e sessões
-SECRET_KEY=your_secret_key     # Segurança da aplicação
+SENTRY_DSN=https://...         # Monitoramento de erros e performance
+REDIS_URL=redis://redis:6379/0 # Cache de sessões e dados
+SECRET_KEY=your_secret_key     # Chave de segurança da aplicação
+LOG_LEVEL=INFO                 # Nível de logging: DEBUG/INFO/WARNING/ERROR
 ```
 
-### Frontend (UI) - Configuração
+### Interface Web - Configuração
 ```bash
 # .env.local na pasta ui/
-NEXT_PUBLIC_API_URL=http://localhost:7777  # URL do backend em desenvolvimento
+NEXT_PUBLIC_API_URL=http://localhost:7777  # Backend em desenvolvimento
 # ou
-NEXT_PUBLIC_API_URL=http://localhost:8000  # URL do backend em produção
+NEXT_PUBLIC_API_URL=http://localhost:8000  # Backend em produção
+NEXT_PUBLIC_APP_NAME="SafeBot"            # Nome da aplicação
 ```
 
-## 📦 **Dependências**
+## 📦 **Stack Tecnológico**
 
-### Backend (Agent)
-- **Core**: `agno`, `fastapi`, `uvicorn`
-- **Database**: `psycopg2-binary`, `sqlalchemy`, `lancedb`
-- **AI**: `openai`, `pypdf`
-- **Produção**: `gunicorn`, `redis`, `sentry-sdk`
+### Backend (Sistema de Agentes)
+- **API Framework**: `fastapi`, `uvicorn` - API REST de alta performance
+- **Database**: `postgresql`, `sqlalchemy`, `lancedb` - Dados relacionais e vetoriais
+- **IA & ML**: `openai`, `langchain`, `pypdf` - Processamento de linguagem natural
+- **Infraestrutura**: `docker`, `redis`, `nginx` - Containerização e cache
 
-### Frontend (UI)
-- **Core**: `next`, `react`, `react-dom`
-- **UI**: `tailwindcss`, `lucide-react`
-- **State**: `zustand`
-- **Styling**: `@tailwindcss/typography`
-- **Development**: `typescript`, `eslint`, `prettier`
+### Frontend (Interface Web)
+- **Framework**: `next.js`, `react` - Interface moderna e responsiva
+- **Styling**: `tailwindcss`, `shadcn/ui` - Design system consistente
+- **Estado**: `zustand` - Gerenciamento de estado simples
+- **Desenvolvimento**: `typescript`, `eslint`, `prettier` - Qualidade de código
+
+### Ferramentas de Desenvolvimento
+- **Containerização**: Docker & Docker Compose
+- **Monitoramento**: Sentry, Prometheus (opcional)
+- **Deploy**: Scripts automatizados, CI/CD ready
 
 ## 🔒 **Segurança**
 
@@ -228,157 +234,187 @@ deploy:
 
 ## 🛠️ **Comandos Úteis**
 
-### Backend (Agent)
+### Sistema Backend
 ```bash
-# Desenvolvimento
+# Iniciar sistema de agentes
 cd agent/
 poetry run python agent.py
 
-# Ver logs em tempo real (Docker)
+# Monitorar logs do sistema
 docker-compose -f docker-compose.prod.yml logs -f
 
-# Restart apenas a aplicação
+# Reiniciar sistema
 docker-compose -f docker-compose.prod.yml restart nr06-playground
 
-# Backup do database
-docker exec pgvector pg_dump -U ai ai > backup.sql
+# Backup da base SafeBot
+docker exec pgvector pg_dump -U ai ai > safebot_backup_$(date +%Y%m%d).sql
 ```
 
-### Frontend (UI)
+### Interface Web
 ```bash
-# Desenvolvimento
+# Iniciar interface de desenvolvimento
 cd ui/
 npm run dev
 
-# Build para produção
-npm run build
-npm start
+# Construir versão otimizada
+npm run build && npm start
 
-# Lint e format
-npm run lint
-npm run format
+# Verificar qualidade do código
+npm run lint && npm run type-check
 ```
 
-### Sistema Completo
+### Monitoramento do Sistema
 ```bash
-# Monitorar performance
+# Performance dos containers
 docker stats
 
-# Verificar portas em uso
-lsof -i :3000  # Frontend
-lsof -i :7777  # Backend dev
-lsof -i :8000  # Backend prod
+# Status das portas
+lsof -i :3000  # Interface Web
+lsof -i :7777  # Sistema Backend (dev)
+lsof -i :8000  # Sistema Backend (prod)
+
+# Health check completo
+curl http://localhost:7777/health && curl http://localhost:3000
 ```
 
 ## 🆘 **Troubleshooting**
 
-### Backend (Agent)
+### Sistema Backend
 
-#### Erro: "Could not connect to docker"
+#### Erro: "Docker não conecta"
 ```bash
-# Verificar se Docker está rodando
+# Verificar status do Docker
 docker info
 
-# No macOS: reiniciar Docker Desktop
-# No Linux: sudo systemctl restart docker
+# Reiniciar Docker (macOS/Linux)
+# macOS: Docker Desktop > Restart
+# Linux: sudo systemctl restart docker
 ```
 
-#### Erro: "ImportError OpenAI"
+#### Erro: "Dependências Python"
 ```bash
-# Reinstalar dependências
+# Reinstalar ambiente Python
 cd agent/
-poetry install --only=main,prod
+poetry env remove python
+poetry install
 ```
 
-#### Erro: Database connection
+#### Erro: "Base de dados indisponível"
 ```bash
-# Verificar se PgVector está rodando
+# Verificar containers
 docker ps | grep pgvector
 
-# Testar conexão
-docker exec pgvector psql -U ai -d ai -c "SELECT 1;"
+# Testar conexão direta
+docker exec pgvector psql -U ai -d ai -c "SELECT version();"
 ```
 
-### Frontend (UI)
+### Interface Web
 
-#### Erro: "Module not found"
+#### Erro: "Módulos não encontrados"
 ```bash
-# Limpar cache e reinstalar
+# Limpar e reinstalar dependências
 cd ui/
-rm -rf node_modules package-lock.json
+rm -rf node_modules package-lock.json .next
 npm install
 ```
 
-#### Erro: "Port 3000 already in use"
+#### Erro: "Porta 3000 em uso"
 ```bash
-# Verificar processo usando a porta
+# Liberar porta
 lsof -ti:3000 | xargs kill -9
 
-# Ou usar porta diferente
+# Usar porta alternativa
 npm run dev -- -p 3001
 ```
 
-#### Erro: "API connection failed"
+#### Erro: "Falha na conexão com API"
 ```bash
-# Verificar se backend está rodando
+# Verificar backend
 curl http://localhost:7777/health
 
-# Verificar variável de ambiente
+# Verificar configuração
 echo $NEXT_PUBLIC_API_URL
+
+# Verificar logs do sistema
+docker-compose logs nr06-playground
 ```
 
 ## 🔄 **Workflow de Desenvolvimento**
 
-### Setup Inicial
+### Setup Inicial do Projeto
 ```bash
-# 1. Clone o repositório
+# 1. Clonar e configurar
 git clone <repository-url>
 cd aci
 
-# 2. Setup Backend
+# 2. Configurar Sistema Backend
 cd agent/
 poetry install
 cp env.example .env
-# Configure OPENAI_API_KEY no .env
+# Adicionar sua OPENAI_API_KEY no arquivo .env
 
-# 3. Setup Frontend
+# 3. Configurar Interface Web
 cd ../ui/
 npm install
-# Configure NEXT_PUBLIC_API_URL se necessário
+# Configurar NEXT_PUBLIC_API_URL se necessário
 ```
 
-### Desenvolvimento Diário
+### Rotina de Desenvolvimento
 ```bash
-# Terminal 1: Backend
+# Terminal 1: SafeBot Backend
 cd agent/
 poetry run python agent.py
 
-# Terminal 2: Frontend
+# Terminal 2: SafeBot Frontend
 cd ui/
 npm run dev
+
+# Acesse: http://localhost:3000 (SafeBot UI) + http://localhost:7777 (SafeBot API)
 ```
 
-### Antes de Commit
+### Checklist Pré-Deploy
 ```bash
-# Backend
+# Verificar sistema backend
 cd agent/
-poetry run pytest  # Se houver testes
+poetry run python -c "import agent; print('✅ Backend OK')"
 
-# Frontend
+# Verificar interface web
 cd ui/
-npm run lint
-npm run type-check
-npm run build  # Verificar se build passa
+npm run lint && npm run type-check && npm run build
+echo "✅ Frontend OK"
+
+# Teste de integração
+curl http://localhost:7777/health
 ```
 
-## 📚 **Documentação**
+## 📚 **Recursos e Documentação**
 
-- [Agno Framework](https://docs.agno.com/)
-- [Agno Playground](https://docs.agno.com/applications/playground/introduction)
-- [Agno Production Deployment](https://docs.agno.com/workspaces/workspace-management/production-app)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Documentation](https://react.dev/)
+### Tecnologias Utilizadas
+- [FastAPI Documentation](https://fastapi.tiangolo.com/) - Framework backend
+- [Next.js Documentation](https://nextjs.org/docs) - Framework frontend
+- [OpenAI API Reference](https://platform.openai.com/docs/api-reference) - Integração IA
+- [PostgreSQL + pgvector](https://github.com/pgvector/pgvector) - Base vetorial
+- [Docker Documentation](https://docs.docker.com/) - Containerização
+
+### Normas Regulamentadoras e SST
+- [Normas Regulamentadoras - Ministério do Trabalho](https://www.gov.br/trabalho-e-previdencia/pt-br/composicao/orgaos-especificos/secretaria-de-trabalho/inspecao/seguranca-e-saude-no-trabalho/ctpp-nrs)
+- [ISO 45001 - Sistemas de Gestão de SST](https://www.iso.org/iso-45001-occupational-health-and-safety.html)
+- [OHSAS 18001 - Sistemas de Gestão de Segurança](https://www.bsigroup.com/en-US/ohsas-18001-occupational-health-and-safety/)
+- [CLT - Consolidação das Leis do Trabalho](http://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm)
+
+### Principais Normas Suportadas
+- **NR-06**: Equipamentos de Proteção Individual (EPI)
+- **NR-07**: Programa de Controle Médico de Saúde Ocupacional (PCMSO)
+- **NR-09**: Programa de Prevenção de Riscos Ambientais (PPRA)
+- **NR-12**: Segurança no Trabalho em Máquinas e Equipamentos
+- **NR-15**: Atividades e Operações Insalubres
+- **NR-16**: Atividades e Operações Perigosas
+- **NR-17**: Ergonomia
+- **NR-18**: Condições e Meio Ambiente de Trabalho na Indústria da Construção
+- **NR-23**: Proteção Contra Incêndios
+- **NR-33**: Segurança e Saúde nos Trabalhos em Espaços Confinados
+- **NR-35**: Trabalho em Altura
 
 ---
 
-**Desenvolvido com ❤️ usando [Agno Framework](https://docs.agno.com/)**
+**🤖 SafeBot - Sistema Inteligente de Segurança do Trabalho para Normas Regulamentadoras**
