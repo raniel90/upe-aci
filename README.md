@@ -1,54 +1,110 @@
-# 🤖 SafeBot - Sistema Inteligente de Segurança do Trabalho
+# 🛡️ SafeBot NR-06 - Sistema Modular de Segurança do Trabalho
 
-Sistema inteligente para análise de normas regulamentadoras em Saúde e Segurança do Trabalho (SST). Uma plataforma especializada que utiliza inteligência artificial para interpretar, auditar e garantir conformidade com normas regulamentadoras de SST através de agentes especializados.
+Sistema inteligente especializado em **NR-06 (Equipamentos de Proteção Individual)** que utiliza inteligência artificial para interpretar, auditar e garantir conformidade através de agentes especializados. Oferece múltiplos canais de acesso: **Telegram Bot 24/7** e **Interface Web** com agentes especializados.
 
-## 🏗️ **Estrutura do Projeto**
+## 🏗️ **Nova Arquitetura Modular**
 
 ```
 aci/
-├── agent/          # Backend - Sistema de agentes IA especializados
-│   ├── agent.py
+├── agent/                    # Backend - Sistema SafeBot NR-06
+│   ├── 🧠 core/
+│   │   ├── agent.py         # Factory de agentes reutilizável
+│   │   └── __init__.py
+│   ├── 📱 telegram_bot/
+│   │   ├── bot.py           # Bot real do Telegram 24/7
+│   │   └── __init__.py
+│   ├── 🌐 web/
+│   │   ├── app.py           # Interface web com 6 agentes especializados
+│   │   └── __init__.py
+│   ├── 🚀 safebot.py        # Launcher unificado
+│   ├── 📱 telegram_bot.py   # Acesso rápido ao Telegram
+│   ├── 📄 agent.py          # Aplicação web principal (MANTIDO)
 │   ├── pyproject.toml
-│   ├── docker-compose.yml
 │   └── ...
-├── ui/             # Frontend - Interface React/Next.js moderna
+├── ui/                      # Frontend - Interface React/Next.js
 │   ├── src/
 │   ├── package.json
 │   └── ...
 └── README.md
 ```
 
-## 🎯 **Agentes Especializados em SST**
+## 🎯 **Canais de Acesso SafeBot NR-06**
 
-- **📋 Auditor de Normas Regulamentadoras** - Analisa conformidade com NRs e identifica não conformidades
-- **⚖️ Consultor em Legislação SST** - Interpreta normas regulamentadoras e legislação trabalhista
-- **📝 Gerador de Procedimentos SST** - Cria POPs, PTRs e documentação técnica de segurança
-- **🔍 Investigador de Acidentes** - Analisa relatórios de acidentes e identifica causas raiz
-- **🎓 Designer de Treinamentos SST** - Desenvolve programas de capacitação em segurança
-- **📊 Analista de Riscos Ocupacionais** - Avalia riscos e categoriza perigos no ambiente de trabalho
+### 📱 **Telegram Bot (Recomendado)**
+- **🤖 Bot Real 24/7** - Funciona continuamente no Telegram
+- **👥 Multi-usuário** - Cada usuário tem seu próprio agente e memória
+- **💬 Conversacional** - Respostas formatadas para mobile
+- **⚡ Instantâneo** - Comandos: `/start`, `/help`, `/status`
+
+### 🌐 **Interface Web (Agentes Especializados)**
+- **🎯 Seletor de EPIs** - Recomenda EPIs por tipo de risco
+- **📋 Auditor NR-06** - Gera checklists de auditoria de conformidade
+- **🎓 Designer de Treinamentos** - Cria programas de capacitação personalizados
+- **🔍 Investigador de Acidentes** - Analisa acidentes relacionados a EPIs
+- **⚖️ Consultor Legal NR-06** - Esclarece aspectos legais da norma
+- **📝 Gerador de POPs** - Cria procedimentos operacionais para EPIs
 
 ## 🚀 **Setup e Execução**
 
-### 🔧 **Desenvolvimento Local**
-
-#### 1. Backend (Sistema de Agentes)
+### 📋 **Configuração Inicial**
 ```bash
 cd agent/
 
-# Instalar dependências Python
+# 1. Instalar dependências
 poetry install
+# ou: pip install python-telegram-bot agno python-dotenv
 
-# Configurar ambiente
+# 2. Configurar variáveis de ambiente
 cp env.example .env
-# Edite .env com sua OPENAI_API_KEY
-
-# Executar o sistema
-poetry run python agent.py
-# ou usar o script de deploy
-./deploy.sh local
+# Edite .env com suas chaves:
+# OPENAI_API_KEY=sua-chave-aqui
+# TELEGRAM_TOKEN=seu-token-aqui (opcional, para Telegram)
 ```
 
-#### 2. Frontend (UI)
+### 🔧 **Opções de Execução**
+
+#### 📱 **Telegram Bot (Recomendado)**
+```bash
+# Opção 1: Via launcher unificado
+python safebot.py telegram
+
+# Opção 2: Acesso direto
+python telegram_bot.py
+
+# Funcionalidades:
+# • Bot real 24/7 no Telegram
+# • Múltiplos usuários simultâneos
+# • Memória individual por usuário
+# • Formatação HTML otimizada
+```
+
+#### 🌐 **Interface Web (6 Agentes Especializados)**
+```bash
+# Opção 1: Via launcher unificado
+python safebot.py web
+
+# Opção 2: Aplicação principal (MANTIDA)
+python agent.py
+
+# Acesso: http://localhost:7777
+# • Interface Agno Playground
+# • 6 agentes especializados
+# • Ideal para trabalho técnico
+```
+
+#### 🔧 **Utilitários**
+```bash
+# Carregar base de conhecimento NR-06
+python safebot.py load-kb
+
+# Informações do sistema
+python safebot.py info
+
+# Ajuda completa
+python safebot.py help
+```
+
+### 🎨 **Frontend (UI) - Opcional**
 ```bash
 cd ui/
 
@@ -61,6 +117,10 @@ pnpm install
 npm run dev
 # ou
 pnpm dev
+
+# Acesso: http://localhost:3000
+# • Interface React/Next.js moderna
+# • Conecta com backend SafeBot
 ```
 
 ### 🐳 **Produção com Docker**
@@ -108,14 +168,20 @@ aws configure
 ## 📊 **Acesso e Monitoramento**
 
 ### URLs de Acesso
-#### Frontend (UI)
-- **Desenvolvimento**: http://localhost:3000
-- **Produção**: http://localhost:3000 (ou porta configurada)
 
-#### Backend (SafeBot API)
-- **Desenvolvimento**: http://localhost:7777
+#### 📱 **Telegram Bot**
+- **Desenvolvimento**: Bot local ativo
+- **Produção**: Bot 24/7 no Telegram
+- **Comandos**: `/start`, `/help`, `/status`
+
+#### 🌐 **Interface Web (SafeBot)**
+- **Desenvolvimento**: http://localhost:7777 (`python agent.py` ou `python safebot.py web`)
 - **Produção**: http://localhost:8000
 - **Nuvem**: https://your-domain.com
+
+#### 🎨 **Frontend (UI) - Opcional**
+- **Desenvolvimento**: http://localhost:3000
+- **Produção**: http://localhost:3000 (ou porta configurada)
 
 ### Health Checks
 - **SafeBot Local**: http://localhost:7777/health
@@ -123,10 +189,18 @@ aws configure
 - **SafeBot Nuvem**: https://your-domain.com/health
 
 ### Endpoints Principais
-- **Dashboard SafeBot**: `/` - Interface de análise de normas regulamentadoras
-- **Console de Agentes**: `/playground` - Interação com agentes SafeBot especializados
-- **Documentação API**: `/docs` - API interativa e especificações técnicas
-- **Status do SafeBot**: `/health` - Monitoramento e métricas de performance
+
+#### 🌐 **Interface Web SafeBot**
+- **Dashboard**: `/` - Visão geral do sistema SafeBot NR-06
+- **Playground**: `/playground` - Interação com 6 agentes especializados
+- **Documentação**: `/docs` - API interativa e especificações técnicas
+- **Health Check**: `/health` - Monitoramento e métricas de performance
+- **Agentes**: `/agents` - Lista de agentes disponíveis
+
+#### 📱 **Telegram Bot**
+- **Início**: Envie `/start` para o bot
+- **Ajuda**: Envie `/help` para comandos
+- **Status**: Envie `/status` para informações da sessão
 
 ## 🏗️ **Arquitetura do Sistema**
 
@@ -162,7 +236,13 @@ aws configure
 
 ### Sistema Backend - Variáveis Essenciais
 ```bash
+# Obrigatórias
 OPENAI_API_KEY=sk-...           # Chave da OpenAI para agentes IA
+
+# Para Telegram (opcional)
+TELEGRAM_TOKEN=123456:ABC...    # Token do bot do Telegram
+
+# Para produção
 ENVIRONMENT=production          # Ambiente: development/production
 DATABASE_URL=postgresql+psycopg://user:pass@host:5432/safebot
 ```
@@ -234,17 +314,27 @@ deploy:
 
 ## 🛠️ **Comandos Úteis**
 
-### Sistema Backend
+### Sistema SafeBot NR-06
 ```bash
-# Iniciar sistema de agentes
+# Iniciar Telegram Bot
 cd agent/
-poetry run python agent.py
+python safebot.py telegram
+# ou
+python telegram_bot.py
 
-# Monitorar logs do sistema
+# Iniciar Interface Web
+python safebot.py web
+# ou
+python agent.py
+
+# Carregar base de conhecimento
+python safebot.py load-kb
+
+# Informações do sistema
+python safebot.py info
+
+# Monitorar logs (Docker)
 docker-compose -f docker-compose.prod.yml logs -f
-
-# Reiniciar sistema
-docker-compose -f docker-compose.prod.yml restart nr06-playground
 
 # Backup da base SafeBot
 docker exec pgvector pg_dump -U ai ai > safebot_backup_$(date +%Y%m%d).sql
@@ -361,15 +451,23 @@ npm install
 
 ### Rotina de Desenvolvimento
 ```bash
+# Opção 1: Telegram Bot (Recomendado)
+cd agent/
+python safebot.py telegram
+# Bot ativo no Telegram 24/7
+
+# Opção 2: Interface Web + Frontend
 # Terminal 1: SafeBot Backend
 cd agent/
-poetry run python agent.py
+python agent.py
+# ou
+python safebot.py web
 
-# Terminal 2: SafeBot Frontend
+# Terminal 2: SafeBot Frontend (Opcional)
 cd ui/
 npm run dev
 
-# Acesse: http://localhost:3000 (SafeBot UI) + http://localhost:7777 (SafeBot API)
+# Acesso: http://localhost:7777 (SafeBot Web) + http://localhost:3000 (UI)
 ```
 
 ### Checklist Pré-Deploy
@@ -417,4 +515,26 @@ curl http://localhost:7777/health
 
 ---
 
-**🤖 SafeBot - Sistema Inteligente de Segurança do Trabalho para Normas Regulamentadoras**
+## 🆕 **Nova Arquitetura Modular - Principais Mudanças**
+
+### ✅ **O que mudou:**
+- **🧠 Core Reutilizável**: Factory de agentes em `core/agent.py`
+- **📱 Telegram Bot Real**: Bot 24/7 em `telegram_bot/bot.py`
+- **🌐 Interface Web**: 6 agentes especializados em `web/app.py`
+- **🚀 Launcher Unificado**: Comando único `safebot.py`
+- **📄 Aplicação Principal**: `agent.py` mantido para compatibilidade
+
+### ✅ **O que permaneceu:**
+- **Interface Web Principal**: `python agent.py` ainda funciona
+- **Configurações**: Mesmo `.env` e `pyproject.toml`
+- **Docker**: Mesmos containers e deploy
+- **Base de Conhecimento**: Mesma NR-06 e vector database
+
+### 🎯 **Recomendações de Uso:**
+1. **Para usuários finais**: Use `python safebot.py telegram` (Bot 24/7)
+2. **Para desenvolvimento**: Use `python agent.py` (Interface Web)
+3. **Para testes**: Use `python safebot.py info` (Verificar sistema)
+
+---
+
+**🛡️ SafeBot NR-06 - Sistema Modular de Segurança do Trabalho**
