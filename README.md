@@ -67,7 +67,6 @@ cd agent/
 
 # 1. Instalar dependências
 poetry install
-# ou: pip install python-telegram-bot agno python-dotenv
 
 # 2. Configurar variáveis de ambiente
 cp env.example .env
