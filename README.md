@@ -7,8 +7,6 @@
 *Sistema Inteligente de Segurança do Trabalho*
 
 [![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://python.org)
-[![Agno](https://img.shields.io/badge/Agno-Latest-green.svg)](https://docs.agno.com)
-[![Telegram](https://img.shields.io/badge/Telegram-Bot-blue.svg)](https://telegram.org)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 </div>
