@@ -13,25 +13,25 @@
 
 ---
 
-Sistema inteligente especializado em **NR-06 (Equipamentos de Proteção Individual)** que utiliza inteligência artificial para interpretar, auditar e garantir conformidade através de agentes especializados. Oferece múltiplos canais de acesso: **Telegram Bot 24/7** e **Interface Web** com agentes especializados.
+Solução que utiliza inteligência artificial para interpretar, auditar e garantir conformidade através de agentes especializados. Oferece múltiplos canais de acesso: **Telegram Bot 24/7** e **Interface Web** com agentes especializados.
 
-## 🏗️ **Nova Arquitetura Modular**
+## 🏗️ **Arquitetura**
 
 ```
 aci/
-├── agent/                    # Backend - Sistema SafeBot NR-06
+├── agent/                   # Backend - API SafeBot
 │   ├── 🧠 core/
 │   │   ├── agent.py         # Factory de agentes reutilizável
 │   │   └── __init__.py
 │   ├── 📱 telegram_bot/
-│   │   ├── bot.py           # Bot real do Telegram 24/7
+│   │   ├── bot.py           # Bot Telegram
 │   │   └── __init__.py
 │   ├── 🌐 web/
 │   │   ├── app.py           # Interface web com 6 agentes especializados
 │   │   └── __init__.py
 │   ├── 🚀 safebot.py        # Launcher unificado
 │   ├── 📱 telegram_bot.py   # Acesso rápido ao Telegram
-│   ├── 📄 agent.py          # Aplicação web principal (MANTIDO)
+│   ├── 📄 agent.py          # Agent da aplicação web
 │   ├── pyproject.toml
 │   └── ...
 ├── ui/                      # Frontend - Interface React/Next.js
@@ -75,7 +75,7 @@ cp env.example .env
 
 ### 🔧 **Opções de Execução**
 
-#### 📱 **Telegram Bot (Recomendado)**
+#### 📱 **Telegram Bot**
 ```bash
 # Opção 1: Via launcher unificado
 python safebot.py telegram
@@ -90,7 +90,7 @@ python telegram_bot.py
 # • Formatação HTML otimizada
 ```
 
-#### 🌐 **Interface Web (6 Agentes Especializados)**
+#### 🌐 **Interface Web**
 ```bash
 # Opção 1: Via launcher unificado
 python safebot.py web
@@ -116,7 +116,7 @@ python safebot.py info
 python safebot.py help
 ```
 
-### 🎨 **Frontend (UI) - Opcional**
+### 🎨 **Frontend (UI)**
 ```bash
 cd ui/
 
@@ -514,39 +514,5 @@ curl http://localhost:7777/health
 
 ### Principais Normas Suportadas
 - **NR-06**: Equipamentos de Proteção Individual (EPI)
-- **NR-07**: Programa de Controle Médico de Saúde Ocupacional (PCMSO)
-- **NR-09**: Programa de Prevenção de Riscos Ambientais (PPRA)
-- **NR-12**: Segurança no Trabalho em Máquinas e Equipamentos
-- **NR-15**: Atividades e Operações Insalubres
-- **NR-16**: Atividades e Operações Perigosas
-- **NR-17**: Ergonomia
-- **NR-18**: Condições e Meio Ambiente de Trabalho na Indústria da Construção
-- **NR-23**: Proteção Contra Incêndios
-- **NR-33**: Segurança e Saúde nos Trabalhos em Espaços Confinados
-- **NR-35**: Trabalho em Altura
-
----
-
-## 🆕 **Nova Arquitetura Modular - Principais Mudanças**
-
-### ✅ **O que mudou:**
-- **🧠 Core Reutilizável**: Factory de agentes em `core/agent.py`
-- **📱 Telegram Bot Real**: Bot 24/7 em `telegram_bot/bot.py`
-- **🌐 Interface Web**: 6 agentes especializados em `web/app.py`
-- **🚀 Launcher Unificado**: Comando único `safebot.py`
-- **📄 Aplicação Principal**: `agent.py` mantido para compatibilidade
-
-### ✅ **O que permaneceu:**
-- **Interface Web Principal**: `python agent.py` ainda funciona
-- **Configurações**: Mesmo `.env` e `pyproject.toml`
-- **Docker**: Mesmos containers e deploy
-- **Base de Conhecimento**: Mesma NR-06 e vector database
-
-### 🎯 **Recomendações de Uso:**
-1. **Para usuários finais**: Use `python safebot.py telegram` (Bot 24/7)
-2. **Para desenvolvimento**: Use `python agent.py` (Interface Web)
-3. **Para testes**: Use `python safebot.py info` (Verificar sistema)
-
----
 
 **🛡️ SafeBot - Sistema Inteligente de Segurança do Trabalho**
