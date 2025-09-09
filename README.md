@@ -1,4 +1,19 @@
-# 🛡️ SafeBot NR-06 - Sistema Modular de Segurança do Trabalho
+<div align="center">
+
+<img src="ui/src/app/favicon.ico" alt="SafeBot Logo" width="128" height="128">
+
+# 🛡️ SafeBot
+
+*Sistema Inteligente de Segurança do Trabalho*
+
+[![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://python.org)
+[![Agno](https://img.shields.io/badge/Agno-Latest-green.svg)](https://docs.agno.com)
+[![Telegram](https://img.shields.io/badge/Telegram-Bot-blue.svg)](https://telegram.org)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+</div>
+
+---
 
 Sistema inteligente especializado em **NR-06 (Equipamentos de Proteção Individual)** que utiliza inteligência artificial para interpretar, auditar e garantir conformidade através de agentes especializados. Oferece múltiplos canais de acesso: **Telegram Bot 24/7** e **Interface Web** com agentes especializados.
 
@@ -28,9 +43,9 @@ aci/
 └── README.md
 ```
 
-## 🎯 **Canais de Acesso SafeBot NR-06**
+## 🎯 **Canais de Acesso SafeBot**
 
-### 📱 **Telegram Bot (Recomendado)**
+### 📱 **Telegram Bot**
 - **🤖 Bot Real 24/7** - Funciona continuamente no Telegram
 - **👥 Multi-usuário** - Cada usuário tem seu próprio agente e memória
 - **💬 Conversacional** - Respostas formatadas para mobile
@@ -314,7 +329,7 @@ deploy:
 
 ## 🛠️ **Comandos Úteis**
 
-### Sistema SafeBot NR-06
+### Sistema SafeBot
 ```bash
 # Iniciar Telegram Bot
 cd agent/
@@ -537,4 +552,4 @@ curl http://localhost:7777/health
 
 ---
 
-**🛡️ SafeBot NR-06 - Sistema Modular de Segurança do Trabalho**
+**🛡️ SafeBot - Sistema Inteligente de Segurança do Trabalho**
