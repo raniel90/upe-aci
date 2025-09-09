@@ -15,31 +15,6 @@
 
 Solução que utiliza inteligência artificial para interpretar, auditar e garantir conformidade através de agentes especializados. Oferece múltiplos canais de acesso: **Telegram Bot 24/7** e **Interface Web** com agentes especializados.
 
-## 🏗️ **Arquitetura**
-
-```
-aci/
-├── agent/                   # Backend - API SafeBot
-│   ├── 🧠 core/
-│   │   ├── agent.py         # Factory de agentes reutilizável
-│   │   └── __init__.py
-│   ├── 📱 telegram_bot/
-│   │   ├── bot.py           # Bot Telegram
-│   │   └── __init__.py
-│   ├── 🌐 web/
-│   │   ├── app.py           # Interface web com 6 agentes especializados
-│   │   └── __init__.py
-│   ├── 🚀 safebot.py        # Launcher unificado
-│   ├── 📱 telegram_bot.py   # Acesso rápido ao Telegram
-│   ├── 📄 agent.py          # Agent da aplicação web
-│   ├── pyproject.toml
-│   └── ...
-├── ui/                      # Frontend - Interface React/Next.js
-│   ├── src/
-│   ├── package.json
-│   └── ...
-└── README.md
-```
 
 ## 🎯 **Canais de Acesso SafeBot**
 
