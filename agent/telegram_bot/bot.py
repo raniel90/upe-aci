@@ -1,13 +1,8 @@
-"""
-SafeBot NR-06 - Telegram Bot
-Bot real do Telegram que responde automaticamente usando Agno e NR-06
-"""
 import os
 import logging
 from typing import Dict
 from telegram import Update
 from telegram.ext import Application, MessageHandler, CommandHandler, filters, ContextTypes
-from agno.tools.telegram import TelegramTools
 from dotenv import load_dotenv
 
 # Importar factory do core
@@ -36,16 +31,14 @@ class SafeBotTelegram:
     def get_user_agent(self, user_id: str):
         """Obtém ou cria agente para um usuário específico"""
         if user_id not in self.user_agents:
-            # Criar TelegramTools para este usuário
-            telegram_tools = TelegramTools(
-                token=self.telegram_token,
-                chat_id=user_id  # Usar user_id como chat_id
-            )
-            
-            # Criar agente usando o factory
             self.user_agents[user_id] = create_telegram_agent(
                 user_id=user_id,
-                telegram_tools=[telegram_tools]
+                telegram_tools=[],  # Lista vazia - sem tools telegram
+                custom_instructions=[
+                    "IMPORTANTE: Você deve apenas retornar o conteúdo da resposta.",
+                    "NÃO envie mensagens diretamente - o bot controlará o envio.",
+                    "Foque apenas em gerar conteúdo útil e bem formatado em HTML."
+                ]
             )
             
             logger.info(f"Novo agente criado para usuário {user_id}")
@@ -62,20 +55,20 @@ class SafeBotTelegram:
         welcome_message = f"""
 🛡️ <b>Olá, {user.first_name}!</b>
 
-Bem-vindo ao SafeBot NR-06! 👋
+Bem-vindo ao SafeBot! 👋
 
-Sou seu assistente especializado em <b>Equipamentos de Proteção Individual</b> (NR-06).
+Sou seu assistente especializado em <b>segurança e saúde do trabalho</b>.
 
 <b>Como posso ajudar você hoje?</b>
-• 🎯 Seleção de EPIs por risco
-• 📋 Auditoria de conformidade  
+• 🎯 Seleção e uso adequado de equipamentos de proteção
+• 📋 Auditoria de conformidade em segurança  
 • 🎓 Treinamentos personalizados
-• 🔍 Investigação de acidentes
-• ⚖️ Consultoria legal
+• 🔍 Investigação de acidentes e incidentes
+• ⚖️ Consultoria legal em normas de segurança
 • 📝 Procedimentos operacionais
 
 <b>Digite sua pergunta ou situação!</b> 💬
-Exemplo: <i>"Preciso EPIs para soldador"</i>
+Exemplo: <i>"Preciso de equipamentos para soldador"</i>
         """
         
         await update.message.reply_text(welcome_message, parse_mode='HTML')
@@ -90,13 +83,13 @@ Exemplo: <i>"Preciso EPIs para soldador"</i>
 /status - Ver status da sua sessão
 
 <b>💡 Como usar:</b>
-Simplesmente digite sua pergunta sobre EPIs!
+Simplesmente digite sua pergunta sobre segurança do trabalho!
 
 <b>🎯 Exemplos:</b>
-• "Preciso EPIs para soldador"
-• "Como fazer auditoria NR-06?"
-• "EPIs para ambiente químico"
-• "Treinamento de capacete"
+• "Preciso de equipamentos para soldador"
+• "Como fazer auditoria de segurança?"
+• "Equipamentos para ambiente químico"
+• "Treinamento de segurança"
 
 Estou aqui para ajudar! 🛡️
         """
@@ -118,7 +111,7 @@ Estou aqui para ajudar! 🛡️
 • <b>User ID:</b> {user_id}
 • <b>Memória:</b> {'Ativa' if agent_exists else 'Inativa'}
 
-<b>SafeBot NR-06</b> está pronto para ajudar! 🛡️
+<b>SafeBot</b> está pronto para ajudar! 🛡️
         """
         
         await update.message.reply_text(status_text, parse_mode='HTML')
@@ -200,7 +193,7 @@ Estou aqui para ajudar! 🛡️
     
     def run_bot(self):
         """Executa o bot do Telegram"""
-        print("🤖 INICIANDO SAFEBOT NR-06 TELEGRAM")
+        print("🤖 INICIANDO SAFEBOT TELEGRAM")
         print("=" * 60)
         
         try:
@@ -234,7 +227,7 @@ Estou aqui para ajudar! 🛡️
 
 def main():
     """Função principal para executar o bot"""
-    print("🛡️ SAFEBOT NR-06 - TELEGRAM BOT")
+    print("🛡️ SAFEBOT - TELEGRAM BOT")
     print("=" * 50)
     
     # Verificar configurações
@@ -254,10 +247,10 @@ def main():
     print("✅ Configurações verificadas")
     
     # Verificar se knowledge base existe
-    nr06_path = os.path.join(os.path.dirname(__file__), "..", "data", "pdfs", "nr-06-atualizada-2022-1.pdf")
-    if not os.path.exists(nr06_path):
+    data = os.path.join(os.path.dirname(__file__), "..", "data", "pdfs", "nr-06-atualizada-2022-1.pdf")
+    if not os.path.exists(data):
         print("⚠️ Arquivo da NR-06 não encontrado!")
-        print(f"Procurado em: {nr06_path}")
+        print(f"Procurado em: {data}")
         print("O bot funcionará, mas sem a base de conhecimento completa.")
         input("Pressione Enter para continuar mesmo assim...")
     

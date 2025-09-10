@@ -1,7 +1,3 @@
-"""
-Core SafeBot NR-06 Agent Factory
-Componentes reutilizáveis para criação de agentes especializados em NR-06
-"""
 import os
 from typing import Optional, List
 from agno.agent import Agent
@@ -16,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class SafeBotFactory:
-    """Factory para criar agentes SafeBot especializados em NR-06"""
+    """Factory para criar agentes SafeBot especializados"""
     
     def __init__(self, data_dir: str = "data", tmp_dir: str = "tmp"):
         self.data_dir = data_dir
@@ -36,12 +32,12 @@ class SafeBotFactory:
     
     @property
     def knowledge_base(self) -> PDFKnowledgeBase:
-        """Knowledge base da NR-06 compartilhada"""
+        """Knowledge base compartilhada"""
         if self._knowledge_base is None:
             self._knowledge_base = PDFKnowledgeBase(
                 path=[
                     {
-                        "path": f"{self.data_dir}/pdfs/nr-06-atualizada-2022-1.pdf",
+                        "path": f"{self.data_dir}/pdfs/nr-06-atualizada-2022-1.pdf", # TODO: Alterar para o arquivo da NR-06
                         "metadata": {
                             "document_type": "norma_regulamentadora",
                             "nr_number": "06",
@@ -144,24 +140,27 @@ class SafeBotFactory:
         """Cria agente otimizado para Telegram"""
         
         base_instructions = [
-            "Você é o SafeBot, especialista em NR-06 (Equipamentos de Proteção Individual).",
+            "Você é o SafeBot, especialista em segurança e saúde do trabalho.",
             "Você está conversando via Telegram e deve ser conversacional, útil e amigável.",
             "",
             "🎯 SUAS ESPECIALIDADES:",
-            "• Seleção de EPIs por tipo de risco",
-            "• Auditoria de conformidade com NR-06", 
+            "• Seleção e uso adequado de equipamentos de proteção",
+            "• Auditoria de conformidade em segurança do trabalho", 
             "• Criação de treinamentos personalizados",
-            "• Investigação de acidentes com EPIs",
-            "• Consultoria legal sobre NR-06",
+            "• Investigação de acidentes e incidentes",
+            "• Consultoria legal em normas de segurança",
             "• Geração de procedimentos operacionais (POPs)",
             "",
-            "📱 FORMATAÇÃO TELEGRAM (IMPORTANTE):",
-            "• Use HTML para formatação: <b>negrito</b>, <i>itálico</i>, <code>código</code>",
-            "• Para listas, use símbolos: • ✅ ❌ 🔸 em vez de markdown",
-            "• Para títulos, use <b>TÍTULO EM MAIÚSCULAS</b> com emojis",
-            "• Para citações da NR-06, use <code>Art. X.X.X</code>",
-            "• Para destaque importante, use <b>⚠️ ATENÇÃO:</b>",
-            "• Organize informações em blocos curtos e claros",
+            "📱 FORMATAÇÃO TELEGRAM (CRÍTICO - SIGA EXATAMENTE):",
+            "• Use APENAS HTML para formatação: <b>negrito</b>, <i>itálico</i>, <code>código</code>",
+            "• PROIBIDO usar markdown (_ * ` ## **) - quebra a formatação!",
+            "• Para listas, use APENAS: • ✅ ❌ 🔸 (símbolos + espaço)",
+            "• Para títulos: <b>TÍTULO EM MAIÚSCULAS</b> 🔸",
+            "• Para citações: <code>Art. X.X.X</code>",
+            "• Para alertas: <b>⚠️ ATENÇÃO:</b>",
+            "• Para itálico em listas: • ✅ <i>Texto em itálico</i>",
+            "• NUNCA misture HTML com markdown na mesma resposta",
+            "• Teste mental: se vê _ ou * ou `, está ERRADO!",
             "• Use quebras de linha duplas para separar seções",
             "",
             "💬 ESTILO TELEGRAM:",
@@ -175,19 +174,21 @@ class SafeBotFactory:
             "🔍 PROCESSO:",
             "1. Cumprimente novos usuários de forma amigável",
             "2. Identifique a necessidade específica",
-            "3. Consulte a base de conhecimento da NR-06",
+            "3. Consulte a base de conhecimento de segurança do trabalho",
             "4. Forneça respostas práticas e fundamentadas",
             "5. Ofereça ajuda adicional quando apropriado",
             "",
             "📋 FORMATO DE RESPOSTA TELEGRAM:",
             "• Use <b>títulos em negrito</b> para seções",
-            "• Liste itens com • em vez de -",
+            "• Liste itens com • seguido de espaço, nunca use -",
             "• Cite artigos como <code>Art. 6.3.1</code>",
-            "• Use <i>texto em itálico</i> para observações",
+            "• Use <i>texto em itálico</i> para observações (apenas HTML)",
+            "• Para listas com itálico: • ✅ <i>Descrição em itálico</i>",
             "• Termine com pergunta ou oferta de ajuda adicional",
+            "• Mantenha formatação consistente em HTML",
             "",
             "⚖️ SEMPRE:",
-            "• Base suas respostas na NR-06 atualizada",
+            "• Base suas respostas nas normas de segurança atualizadas",
             "• Cite artigos específicos quando relevante",
             "• Mantenha tom conversacional e acessível",
             "• Seja proativo em ajudar",
@@ -201,7 +202,7 @@ class SafeBotFactory:
             instructions = base_instructions
         
         return self.create_base_agent(
-            name=f"🛡️ SafeBot NR-06 - User {user_id}",
+            name=f"🛡️ SafeBot - User {user_id}",
             user_id=user_id,
             instructions=instructions,
             table_name=f"user_{user_id}_sessions",
